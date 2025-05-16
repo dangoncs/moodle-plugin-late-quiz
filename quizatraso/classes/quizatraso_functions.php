@@ -15,7 +15,7 @@ class quizatraso_functions {
         }
 
         $delay_seconds = $time_submitted - $due_date;
-        $delay_days = $delay_seconds > 0 ? ceil($delayseconds / 86400) : 0;
+        $delay_days = $delay_seconds > 0 ? ceil($delay_seconds / 86400) : 0;
         
         $original_grade = $attempt->sumgrades;
         $penalty = $delay_days * ($settings->penaltypercent / 100.0);
