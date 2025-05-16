@@ -15,6 +15,6 @@ class observer {
         }
         
         require_once(__DIR__.'/quizatraso.php');
-        local_quizatraso::apply_penalty($quiz, $attempt, $penaltypercent);
+        apply_penalty($quiz, $attempt, $penaltypercent);
     }
 }
