@@ -1,9 +1,10 @@
 <?php
+namespace local_quizatraso;
 defined('MOODLE_INTERNAL') || die();
 
 class quizatraso_functions {
     
-    protected static function apply_penalty($attempt, $quiz, $settings) {
+    public static function apply_penalty($attempt, $quiz, $settings) {
         global $DB;
 
         if ((!$settings) || ($settings->penaltypercent <= 0) || ($attempt->timefinish <= $settings->duedate)) {
