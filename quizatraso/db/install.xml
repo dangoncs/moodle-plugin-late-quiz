@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/quizatraso/db" VERSION="2025050801" COMMENT="Tabela de configuracao de atrasos do quiz (atualizada)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../lib/xmldb/xmldb.xsd">
+<XMLDB PATH="local/quizatraso/db" VERSION="2025050900" COMMENT="Tabela de configuracao de atrasos do quiz (atualizada)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../lib/xmldb/xmldb.xsd">
   <TABLES>
-    <TABLE NAME="local_quizatraso_config" COMMENT="Configuracoes de atraso por quiz">
+    <TABLE NAME="local_quizatraso" COMMENT="Configuracoes de atraso por quiz">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="penaltypercent" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" />
+        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" />
+        <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" />
+        <FIELD NAME="penaltypercent" TYPE="float" NOTNULL="true" DEFAULT="0.0" />
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="quizid" TYPE="unique" FIELDS="quizid" />
       </KEYS>
     </TABLE>
   </TABLES>
