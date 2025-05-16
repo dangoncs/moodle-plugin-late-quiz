@@ -3,7 +3,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class quizatraso_functions {
     
-    protected static function apply_penalty($quiz, $attempt, $settings) {
+    protected static function apply_penalty($attempt, $quiz, $settings) {
         global $DB;
 
         if ((!$settings) || ($settings->penaltypercent <= 0) || ($attempt->timefinish <= $settings->duedate)) {
