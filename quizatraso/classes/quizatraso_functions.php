@@ -7,14 +7,20 @@ class quizatraso_functions {
     public static function apply_penalty($attempt, $quiz, $settings) {
         global $DB;
 
-        if ((!$settings) || ($settings->penaltypercent <= 0) || ($attempt->timefinish <= $settings->duedate)) {
+        $time_submitted = $attempt->timefinish;
+        $due_date = $config->duedate;
+
+        if ((!$settings) || ($settings->penaltypercent <= 0) || ($time_submitted <= $due_date)) {
             return;
         }
+
+        $delay_seconds = $time_submitted - $due_date;
+        $delay_days = $delayseconds > 0 ? ceil($delayseconds / 86400) : 0;
         
         $original_grade = $attempt->sumgrades;
-        $penalty_factor = 1 - ($penaltypercent / 100.0);
-        $penalized_grade = $original_grade * $penalty_factor;
-        $final_grade = max(0, $penalized_grade);
+        $penalty = $delay_days * ($settings->penaltypercent / 100.0);
+        $adjusted_penalty = min($penalty, 1);
+        $final_grade = $original_grade * (1 - $adjusted_penalty);
         
         $formatted_original_grade = number_format($original_grade, 2);
         
@@ -34,7 +40,7 @@ class quizatraso_functions {
             $DB->update_record('quiz_grades', $grade);
         }
 
-        \core\notification::info("NOTA PENALIZADA: de {$formatted_original_grade} para {$final_grade}, por conta do atraso de {$delaydays} dia(s).");
+        \core\notification::info("NOTA PENALIZADA: de {$formatted_original_grade} para {$final_grade}, por conta do atraso de {$delay_days} dia(s).");
     }
     
     public static function get_due_date_display($quizid) {
