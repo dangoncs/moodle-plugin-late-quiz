@@ -1,10 +1,14 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
-class local_quizatraso {
+class quizatraso_functions {
     
-    protected static function apply_penalty($quiz, $attempt, $penaltypercent) {
+    protected static function apply_penalty($quiz, $attempt, $settings) {
         global $DB;
+
+        if ((!$settings) || ($settings->penaltypercent <= 0) || ($attempt->timefinish <= $settings->duedate)) {
+            return;
+        }
         
         $original_grade = $attempt->sumgrades;
         $penalty_factor = 1 - ($penaltypercent / 100.0);

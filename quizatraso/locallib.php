@@ -2,11 +2,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 function local_quizatraso_before_standard_html_head() {
+    debugging('Executing local_quizatraso_before_standard_html_head');
     global $PAGE, $OUTPUT;
     
     if ($PAGE->cm && $PAGE->cm->modname === 'quiz') {
-        require_once(__DIR__.'/classes/quizatraso.php');
-        $duedate = local_quizatraso::get_due_date_display($PAGE->cm->instance);
+        require_once(__DIR__.'/classes/quizatraso_functions.php');
+        $duedate = quizatraso_functions::get_due_date_display($PAGE->cm->instance);
         
         if ($duedate) {
             $message = get_string('duedate_info', 'local_quizatraso', $duedate);
