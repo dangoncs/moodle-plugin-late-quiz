@@ -8,14 +8,14 @@ class quizatraso_functions {
         global $DB;
 
         $time_submitted = $attempt->timefinish;
-        $due_date = $config->duedate;
+        $due_date = $settings->duedate;
 
         if ((!$settings) || ($settings->penaltypercent <= 0) || ($time_submitted <= $due_date)) {
             return;
         }
 
         $delay_seconds = $time_submitted - $due_date;
-        $delay_days = $delayseconds > 0 ? ceil($delayseconds / 86400) : 0;
+        $delay_days = $delay_seconds > 0 ? ceil($delayseconds / 86400) : 0;
         
         $original_grade = $attempt->sumgrades;
         $penalty = $delay_days * ($settings->penaltypercent / 100.0);
